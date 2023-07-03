@@ -28,6 +28,7 @@
     "prettier:check": "prettier --list-different \"{src,test}/**/*.{ts,tsx}\"",
     "prettier:write": "prettier --write \"{src,test}/**/*.{ts,tsx}\"",
     "e2e": "jest --config e2e/config.json",
+    "e2e:update-snapshot": "jest --config e2e/config.json --updateSnapshot",
     "scaffold:generate": "node ./e2e-scaffold/scripts/generateScaffold.js",
     "scaffold:start": "npm run start --prefix=./temp/app-example",
     "scaffold:prepare-e2e": "npm run scaffold:generate && npm run scaffold:start",
