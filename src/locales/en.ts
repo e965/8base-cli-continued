@@ -238,7 +238,8 @@ export default {
      */
     generate_scaffold_usage: '8base generate scaffold <tableName> [OPTIONS]',
     generate_scaffold_describe:
-      '[DEPRECATED] Generates CRUD screens for a table in a specific framework (framework availability: react)',
+      'Generates CRUD screens for a table in a specific framework (framework availability: react)',
+    generate_scaffold_table_name: 'The name of the table',
     generate_scaffold_deprecated: 'Functionality removed from the project',
 
     /**
