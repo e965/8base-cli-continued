@@ -235,7 +235,11 @@ export class Context {
     return _.get(data, ['workspacesList', 'items'], []);
   }
 
-  async request(query: string, variables: any = null, options?: RequestOptions): Promise<any> {
+  async request<TVariables extends object, TResult = any>(
+    query: string,
+    variables: TVariables = null,
+    options?: RequestOptions,
+  ): Promise<TResult> {
     const defaultOptions: RequestOptions = {
       customAuthorization: REQUEST_HEADER_NOT_SET,
       customWorkspaceId: REQUEST_HEADER_NOT_SET,
