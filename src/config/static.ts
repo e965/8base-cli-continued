@@ -75,6 +75,9 @@ export class StaticConfig {
   static metaFolder = 'meta';
   static packageFolder = 'package';
 
+  static starterAppRepoUrl = 'https://github.com/8base/react-app-starter';
+  static starterAppRepoDefaultBranch = 'v0.5.1';
+
   static buildRootDirPath = path.join(StaticConfig.rootExecutionDir, StaticConfig.buildRootFolder);
   static buildDistPath = path.join(StaticConfig.buildRootDirPath, StaticConfig.buildDistFolder);
   static metaDir = path.join(StaticConfig.buildRootDirPath, StaticConfig.metaFolder);

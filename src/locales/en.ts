@@ -237,18 +237,9 @@ export default {
      * Generate scaffold related messages
      */
     generate_scaffold_usage: '8base generate scaffold <tableName> [OPTIONS]',
-    generate_scaffold_name: 'The name of the table',
     generate_scaffold_describe:
-      'Generates CRUD screens for a table in a specific framework (framework availability: react)',
-    generate_scaffold_depth_describe: 'Depth of the generated query',
-    generate_scaffold_table_error: "Can't find a '{{- tableName }}' table",
-    generate_scaffold_crud_exist_error: 'CRUD for this table already exist.',
-    generate_scaffold_project_file_error:
-      "Can't find a '{{- projectFileName }}' file. You should be in the project root directory to exec this command.",
-    generate_scaffold_project_name_error:
-      "Can't find an 'appName' constant. Check you '{{- projectFileName }}' file in the project root directory.",
-    generate_scaffold_successfully_created: '{{- screenName }} was successfully created',
-    generate_scaffold_was_not_created: "{{- screenName }} wasn't created",
+      '[DEPRECATED] Generates CRUD screens for a table in a specific framework (framework availability: react)',
+    generate_scaffold_deprecated: 'Functionality removed from the project',
 
     /**
      * Generate resolver related messages
