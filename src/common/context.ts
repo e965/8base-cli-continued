@@ -1,8 +1,8 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import * as fs from 'fs-extra';
 import * as i18next from 'i18next';
 import Ora from 'ora';
-import * as path from 'path';
+import * as path from 'node:path';
 import * as winston from 'winston';
 import yaml from 'yaml';
 import chalk from 'chalk';

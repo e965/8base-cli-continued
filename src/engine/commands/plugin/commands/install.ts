@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import * as path from 'path';
-import * as _ from 'lodash';
+import * as path from 'node:path';
+import _ from 'lodash';
 import AdmZip from 'adm-zip';
 
 import { StaticConfig } from '../../../../config';
