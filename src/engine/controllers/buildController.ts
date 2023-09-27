@@ -77,15 +77,16 @@ export class BuildController {
     // have to add '/' at the beginning to ignore only root folder. avoid recursive
     const ignoreFilter = ignore().add(excludedRoots.map(item => `/${item}`));
 
-    if (await fs.exists(StaticConfig.ignoreFileName)) {
-      ignoreFilter.add(await fs.readFile(StaticConfig.ignoreFileName, { encoding: 'utf8' }));
+    const ignoreFilePath = path.join(StaticConfig.rootExecutionDir, StaticConfig.ignoreFileName);
+    if (await fs.exists(ignoreFilePath)) {
+      ignoreFilter.add(await fs.readFile(ignoreFilePath, { encoding: 'utf8' }));
     }
 
     const files = await fs.readdir(context.config.rootExecutionDir);
 
     const sourceToArchive = files
-      .map(file => path.relative(process.cwd(), file))
       .filter(file => !ignoreFilter.ignores(file))
+      .map(file => path.join(StaticConfig.rootExecutionDir, file))
       .map(file => ({ dist: file, source: file }));
 
     return Utils.archiveToMemory(sourceToArchive, context);

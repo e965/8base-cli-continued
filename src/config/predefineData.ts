@@ -1,8 +1,10 @@
-import * as path from 'node:path';
+import path from 'node:path';
+
+const { CUSTOM_EXECUTION_DIR = '' } = process.env;
 
 export class PredefineData {
   projectDir = path.join(__dirname, '../');
-  executionDir = process.cwd();
+  executionDir = path.join(process.cwd(), CUSTOM_EXECUTION_DIR);
   projectTemplatePath = path.join(this.projectDir, '../templates/project');
   functionTemplatesPath = path.join(this.projectDir, '../templates/functions');
   pluginTemplatePath = path.join(this.projectDir, '../templates/plugin');

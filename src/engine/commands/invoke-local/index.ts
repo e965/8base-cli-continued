@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import * as dotenv from 'dotenv';
 import * as path from 'node:path';
 
+import { StaticConfig } from '../../../config';
 import { Context } from '../../../common/context';
 import { translations } from '../../../common/translations';
 import { Utils } from '../../../common/utils';
@@ -48,7 +49,7 @@ export default {
   handler: async (params: InvokeLocalParams, context: Context) => {
     context.initializeProject();
 
-    dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
+    dotenv.config({ path: path.resolve(StaticConfig.rootExecutionDir, '.env.local') });
 
     context.spinner.start(context.i18n.t('invoke_local_in_progress'));
 

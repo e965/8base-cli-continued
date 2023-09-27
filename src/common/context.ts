@@ -96,7 +96,7 @@ export class Context {
   }
 
   getWorkspaceConfigPath(customPath?: string): string {
-    return path.join(customPath || process.cwd(), StaticConfig.workspaceConfigFilename);
+    return path.join(customPath || StaticConfig.rootExecutionDir, StaticConfig.workspaceConfigFilename);
   }
 
   updateWorkspace(value: WorkspaceConfig): void {
@@ -157,7 +157,7 @@ export class Context {
   }
 
   getProjectConfigPath(customPath?: string): string {
-    return path.join(customPath || process.cwd(), StaticConfig.projectConfigFilename);
+    return path.join(customPath || StaticConfig.rootExecutionDir, StaticConfig.projectConfigFilename);
   }
 
   hasProjectConfig(customPath?: string): boolean {
