@@ -1,10 +1,11 @@
 import yargs from 'yargs';
 import _ from 'lodash';
+import { SchemaNameGenerator } from '@8base/schema-name-generator';
+
 import { Context } from '../../../common/context';
 import { translations } from '../../../common/translations';
 import { ProjectConfigurationState } from '../../../common/configuraion';
 import { GraphqlActions } from '../../../consts/GraphqlActions';
-import { SchemaNameGenerator } from '@8base/schema-name-generator';
 
 type CheckParams = { views: boolean };
 type Table = { name: string; origin: { type: 'VIEW' | string } };
