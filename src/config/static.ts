@@ -1,13 +1,11 @@
 import * as path from 'node:path';
 import { PredefineData } from './predefineData';
 
-const packageFile = require('../../package.json');
-
 export class StaticConfig {
   private static staticData = new PredefineData();
 
-  static packageName = packageFile.name;
-  static packageVersion = packageFile.version;
+  static packageName = '__packageFileName__';
+  static packageVersion = '__packageFileVersion__';
 
   static workspaceConfigFilename = '.workspace.json' as const;
   static projectConfigFilename = '8base.yml' as const;

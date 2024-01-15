@@ -1,5 +1,5 @@
 import yargs from 'yargs';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import chalk from 'chalk';
 import _ from 'lodash';
 

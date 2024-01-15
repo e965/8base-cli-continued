@@ -1,6 +1,5 @@
 import * as fs from 'fs-extra';
 import yargs from 'yargs';
-import 'isomorphic-fetch';
 
 import { Context } from '../../../common/context';
 import { Utils } from '../../../common/utils';

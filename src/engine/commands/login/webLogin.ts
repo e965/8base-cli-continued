@@ -1,7 +1,7 @@
-import { Context } from '../../../common/context';
-import * as cuid from '@paralleldrive/cuid2';
+import cuid from '@paralleldrive/cuid2';
 import open from 'open';
-import 'isomorphic-fetch';
+
+import { Context } from '../../../common/context';
 import { SessionInfo } from '../../../interfaces/Common';
 import { Utils } from '../../../common/utils';
 
@@ -15,13 +15,14 @@ export const webLogin = async (params: { w: string }, context: Context): Promise
   let retryCount = 150; // 150 * 2s = 300s = 5 min
 
   let res = null;
+
   while (--retryCount > 0) {
     context.logger.debug(`try to fetch session ${session}`);
     try {
       const response = await Utils.checkHttpResponse(
         fetch(`${Utils.trimLastSlash(context.resolveMainServerAddress())}/loginSessionGet/${session}`),
       );
-      res = await response.json();
+      res = (await response.json()) as { idToken: string; refreshToken: string } | null;
     } catch (e) {
       if (e.statusCode === 404) {
         context.logger.debug(`session not present`);
