@@ -1,6 +1,5 @@
 import * as path from 'node:path';
 import { Readable } from 'node:stream';
-import 'isomorphic-fetch';
 import * as fs from 'node:fs';
 import _ from 'lodash';
 import AdmZip from 'adm-zip';
@@ -158,7 +157,7 @@ export namespace Utils {
   export const getNpmLatestPackageVersion = async (packageName: string): Promise<string> => {
     const registryUrl = `https://registry.npmjs.org/${packageName}`;
     const dataRequest = await checkHttpResponse(fetch(registryUrl, { method: 'GET' }));
-    const data = await dataRequest.json();
+    const data = (await dataRequest.json()) as { 'dist-tags': { latest: string | null } | null } | null;
 
     const version = data?.['dist-tags']?.latest;
     if (!version) {
