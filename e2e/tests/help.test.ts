@@ -38,6 +38,7 @@ it.each([
   [['migration', 'commit']],
   [['migration', 'generate']],
   [['migration', 'status']],
+  [['introspection']],
 ])('As a user, I can use help flag for see help information about `%s`.', async cmd => {
   const { stdout } = await runner()(...cmd, '--help');
 
