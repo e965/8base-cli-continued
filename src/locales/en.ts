@@ -141,6 +141,7 @@ export default {
     introspection_file_describe: 'Destination file',
     introspection_file_required_option_error:
       'Please specify a relative path and filename.\n\nExample: \n`8base introspection -f <EXPORT_FILE_PATH>`',
+    introspection_uncompressed_describe: '"Uncompress" the file when saving (set line breaks and indents)',
     introspection_in_progress: 'Fetching enviroment introspection...',
     introspection_fetch_failed: 'Failed to fetch introspection',
 

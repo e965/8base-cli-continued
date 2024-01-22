@@ -379,6 +379,20 @@ EXAMPLES
   8base init my-project  Creates new folder for initialized project"
 `;
 
+exports[`As a user, I can use help flag for see help information about \`[ 'introspection' ]\`. 1`] = `
+"COMMAND
+  8base introspection [OPTIONS]
+
+DESCRIPTION
+  Getting introspection of the current enviroment
+
+OPTIONS
+  -d, --debug         Turn on debug logs  [boolean]
+  -h, --help          Show help  [boolean]
+  -f, --file          Destination file  [string] [required]
+  -u, --uncompressed  Destination file  [boolean]"
+`;
+
 exports[`As a user, I can use help flag for see help information about \`[ 'invoke' ]\`. 1`] = `
 "COMMAND
   8base invoke <name> [OPTIONS]

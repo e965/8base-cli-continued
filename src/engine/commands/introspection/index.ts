@@ -7,7 +7,7 @@ import { translations } from '../../../common/translations';
 import { GraphqlActions } from '../../../consts/GraphqlActions';
 import { ProjectConfigurationState } from '../../../common/configuraion';
 
-type IntrospectionParams = { file: string };
+type IntrospectionParams = { file: string; uncompressed: boolean };
 
 export default {
   command: 'introspection',
@@ -24,7 +24,14 @@ export default {
     }
 
     const introspectionRequest = await Utils.checkHttpResponse(fetch(introspectionUrl, { method: 'GET' }));
-    const introspectionContent = await introspectionRequest.text();
+    let introspectionContent = '';
+
+    if (params.uncompressed) {
+      const introspectionContentJson = await introspectionRequest.json();
+      introspectionContent = JSON.stringify(introspectionContentJson, null, '\t');
+    } else {
+      introspectionContent = await introspectionRequest.text();
+    }
 
     await fs.writeFile(params.file, introspectionContent);
 
@@ -34,11 +41,18 @@ export default {
   describe: translations.i18n.t('introspection_describe'),
 
   builder: (args: yargs.Argv): yargs.Argv =>
-    args.usage(translations.i18n.t('introspection_usage')).option('file', {
-      alias: 'f',
-      describe: translations.i18n.t('introspection_file_describe'),
-      type: 'string',
-      demandOption: translations.i18n.t('introspection_file_required_option_error'),
-      requiresArg: true,
-    }),
+    args
+      .usage(translations.i18n.t('introspection_usage'))
+      .option('file', {
+        alias: 'f',
+        describe: translations.i18n.t('introspection_file_describe'),
+        type: 'string',
+        demandOption: translations.i18n.t('introspection_file_required_option_error'),
+        requiresArg: true,
+      })
+      .option('uncompressed', {
+        alias: 'u',
+        describe: translations.i18n.t('introspection_file_describe'),
+        type: 'boolean',
+      }),
 };
