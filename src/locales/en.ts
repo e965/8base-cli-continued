@@ -135,14 +135,14 @@ export default {
      * Introspection related messages
      */
 
-    introspection_describe: 'Getting introspection of the current enviroment',
+    introspection_describe: 'Getting introspection of the current environment',
     introspection_usage:
-      'COMMAND\n  8base introspection [OPTIONS]\n\nDESCRIPTION\n  Getting introspection of the current enviroment',
+      'COMMAND\n  8base introspection [OPTIONS]\n\nDESCRIPTION\n  Getting introspection of the current environment',
     introspection_file_describe: 'Destination file',
     introspection_file_required_option_error:
       'Please specify a relative path and filename.\n\nExample: \n`8base introspection -f <EXPORT_FILE_PATH>`',
     introspection_uncompressed_describe: '"Uncompress" the file when saving (set line breaks and indents)',
-    introspection_in_progress: 'Fetching enviroment introspection...',
+    introspection_in_progress: 'Fetching environment introspection...',
     introspection_fetch_failed: 'Failed to fetch introspection',
 
     /**
