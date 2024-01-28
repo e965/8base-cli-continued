@@ -4,7 +4,7 @@ import { SchemaNameGenerator } from '@8base/schema-name-generator';
 
 import { Context } from '../../../common/context';
 import { translations } from '../../../common/translations';
-import { ProjectConfigurationState } from '../../../common/configuraion';
+import { ProjectConfigurationState } from '../../../common/configuration';
 import { GraphqlActions } from '../../../consts/GraphqlActions';
 
 type CheckParams = { views: boolean };

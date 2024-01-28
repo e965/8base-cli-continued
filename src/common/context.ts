@@ -17,10 +17,19 @@ import { ProjectController } from '../engine/controllers/projectController';
 import { StorageParameters } from '../consts/StorageParameters';
 import { Translations } from './translations';
 import { Colors } from '../consts/Colors';
-import { EnvironmentInfo, RequestOptions, SessionInfo, Workspace } from '../interfaces/Common';
+import {
+  ConfirmFunctionsVersionChangeResult,
+  EnvironmentInfo,
+  FunctionsVersionCheckInfo,
+  RequestOptions,
+  SessionInfo,
+  Workspace,
+} from '../interfaces/Common';
 import { GraphqlActions } from '../consts/GraphqlActions';
 import { DEFAULT_ENVIRONMENT_NAME } from '../consts/Environment';
 import { REQUEST_HEADER_IGNORED, REQUEST_HEADER_NOT_SET } from '../consts/request';
+import { Interactive } from './interactive';
+import { DEFAULT_NODE_VERSION } from '../consts/Misc';
 
 export type WorkspaceConfig = {
   readonly workspaceId: string;
@@ -30,8 +39,14 @@ export type WorkspaceConfig = {
 
 export type Plugin = { name: string; path: string };
 
+export type Settings = {
+  nodeVersion?: string;
+  timeout?: number;
+};
+
 export type ProjectConfig = {
   functions: Record<string, any>;
+  settings?: Settings;
   plugins?: Plugin[];
 };
 
@@ -88,6 +103,60 @@ export class Context {
     }
 
     return environments;
+  }
+
+  async functionsVersionCheck(): Promise<FunctionsVersionCheckInfo> {
+    const { system } = await this.request(GraphqlActions.functionsVersionCheck, null, {
+      customWorkspaceId: this.workspaceId,
+      customEnvironment: this.environmentName,
+    });
+
+    return system.functionsVersionCheck;
+  }
+
+  async confirmFunctionsVersionChange(forceMode = false): Promise<ConfirmFunctionsVersionChangeResult> {
+    const { version: rawRemoteVersion } = await this.functionsVersionCheck();
+    const remoteVersion = rawRemoteVersion.replace(/\D/g, '');
+
+    const localVersionRaw = this.projectConfig.settings?.nodeVersion;
+    const localVersion = localVersionRaw ? String(localVersionRaw).replace(/\D/g, '') : undefined;
+
+    let needToChangeVersion = true;
+    let confirmChangeVersion = false;
+
+    if (!localVersion) {
+      // Catch the state when the local version is not set,
+      // and the version on the server differs from the "default" one
+      if (remoteVersion !== DEFAULT_NODE_VERSION) {
+        throw new Error(this.i18n.t('node_version_local_non_exists_and_mismatch'));
+      }
+
+      needToChangeVersion = false;
+    }
+
+    if (localVersion && localVersion !== remoteVersion) {
+      // The local version is set in the 8base.yml file,
+      // but is different from the one on the server
+      this.logger.warn(this.i18n.t('node_version_local_and_remote_mismatch'));
+
+      if (forceMode) {
+        this.logger.info(this.i18n.t('node_version_synchronization_force'));
+        confirmChangeVersion = true;
+      } else {
+        ({ confirmChangeVersion } = await Interactive.ask({
+          name: 'confirmChangeVersion',
+          type: 'confirm',
+          message: this.i18n.t('node_version_synchronization_confirm'),
+          initial: false,
+        }));
+      }
+    }
+
+    if (localVersion && localVersion === remoteVersion) {
+      needToChangeVersion = false;
+    }
+
+    return { needToChangeVersion, confirmChangeVersion, nodeVersion: localVersion ?? remoteVersion };
   }
 
   set workspaceConfig(value: WorkspaceConfig) {
@@ -190,11 +259,11 @@ export class Context {
 
     this.logger.debug('set session info...');
     if (_.isString(data.idToken)) {
-      this.logger.debug(`id token ${data.idToken.substr(0, 10)}`);
+      this.logger.debug(`id token ${data.idToken.substring(0, 10)}`);
     }
 
     if (_.isString(data.refreshToken)) {
-      this.logger.debug(`refresh token: ${data.refreshToken.substr(0, 10)}`);
+      this.logger.debug(`refresh token: ${data.refreshToken.substring(0, 10)}`);
     }
 
     this.storage.setValues([
@@ -235,6 +304,7 @@ export class Context {
     return _.get(data, ['workspacesList', 'items'], []);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async request<TVariables extends object, TResult = any>(
     query: string,
     variables: TVariables = null,
@@ -247,19 +317,16 @@ export class Context {
       address: this.apiHost || this.resolveMainServerAddress(),
     };
 
-    const { customEnvironment, customWorkspaceId, customAuthorization, address } = options
-      ? {
-          ...defaultOptions,
-          ...options,
-        }
-      : defaultOptions;
+    const optionsWithDefaults = options ? { ...defaultOptions, ...options } : defaultOptions;
+
+    const { customEnvironment, customWorkspaceId, customAuthorization, address } = optionsWithDefaults;
 
     this.logger.debug(this.i18n.t('debug:remote_address', { remoteAddress: address }));
 
     if (!address) {
       /*
         address has to be passed as parameter (workspace list query) or resolved from workspace info
-        another way it's invalid behaviour
+        another way it's invalid behavior
      */
       throw new Error(this.i18n.t('configure_error'));
     }

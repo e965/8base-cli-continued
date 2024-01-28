@@ -7,9 +7,9 @@ import { Context } from '../../../../common/context';
 import { translations } from '../../../../common/translations';
 import { executeAsync, executeDeploy, uploadProject } from '../../../../common/execute';
 import { GraphqlAsyncActions } from '../../../../consts/GraphqlActions';
-import { ProjectConfigurationState } from '../../../../common/configuraion';
+import { ProjectConfigurationState } from '../../../../common/configuration';
 import { DeployModeType } from '../../../../interfaces/Extensions';
-import { CommitMode, RequestOptions } from '../../../../interfaces/Common';
+import { CommitMode } from '../../../../interfaces/Common';
 import { DEFAULT_ENVIRONMENT_NAME } from '../../../../consts/Environment';
 import { Interactive } from '../../../../common/interactive';
 import { StaticConfig } from '../../../../config';
@@ -53,8 +53,16 @@ export default {
       );
     }
 
-    const options: RequestOptions = { customEnvironment: environment };
-    await executeDeploy(context, { mode: DeployModeType.migrations }, options);
+    const { needToChangeVersion, confirmChangeVersion, nodeVersion } = await context.confirmFunctionsVersionChange(
+      params.force,
+    );
+
+    if (needToChangeVersion && !confirmChangeVersion) {
+      throw new Error(context.i18n.t('migration_commit_canceled'));
+    }
+
+    const options = { customEnvironment: environment, nodeVersion };
+    await executeDeploy(context, { mode: DeployModeType.migrations, nodeVersion }, options);
 
     context.spinner.start(context.i18n.t('migration_commit_in_progress'));
 
@@ -63,12 +71,9 @@ export default {
         ? await uploadProject(context, options)
         : { buildName: null };
 
-    await executeAsync(
-      context,
-      GraphqlAsyncActions.commit,
-      { mode: params.mode, build: buildName, migrationNames: migrationNames },
-      { customEnvironment: environment },
-    );
+    const variables = { mode: params.mode, build: buildName, migrationNames: migrationNames, nodeVersion };
+
+    await executeAsync(context, GraphqlAsyncActions.commit, variables, options);
 
     context.spinner.stop();
   },

@@ -6,14 +6,22 @@ import { translations } from '../../../common/translations';
 import { DeployModeType } from '../../../interfaces/Extensions';
 import { executeDeploy } from '../../../common/execute';
 
-type DeployParams = { plugins?: string[]; mode: DeployModeType };
+type DeployParams = { plugins?: string[]; mode: DeployModeType; force?: boolean };
 
 export default {
   command: 'deploy',
   handler: async (params: DeployParams, context: Context) => {
     context.initializeProject();
 
-    let deployOptions = { mode: params.mode };
+    const { needToChangeVersion, confirmChangeVersion, nodeVersion } = await context.confirmFunctionsVersionChange(
+      params.force,
+    );
+
+    if (needToChangeVersion && !confirmChangeVersion) {
+      throw new Error(context.i18n.t('deploy_cancelled'));
+    }
+
+    let deployOptions = { mode: params.mode, nodeVersion };
 
     if (Array.isArray(params.plugins) && params.plugins.length > 0) {
       deployOptions = _.set(deployOptions, 'pluginNames', params.plugins);
@@ -39,5 +47,11 @@ export default {
         type: 'string',
         choices: Object.values(DeployModeType),
         requiresArg: true,
+      })
+      .option('force', {
+        alias: 'f',
+        describe: translations.i18n.t('deploy_force_describe'),
+        type: 'boolean',
+        requiresArg: false,
       }),
 };

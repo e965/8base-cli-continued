@@ -8,6 +8,16 @@ export type EnvironmentInfo = {
   name: string;
 };
 
+export type FunctionsVersionCheckInfo = {
+  version: string;
+};
+
+export type ConfirmFunctionsVersionChangeResult = {
+  needToChangeVersion: boolean;
+  confirmChangeVersion: boolean;
+  nodeVersion: string;
+};
+
 export enum MigrateMode {
   FULL = 'FULL',
   SYSTEM = 'SYSTEM',

@@ -20,7 +20,7 @@ COMMANDS
   8base generate <command>     Generator for server and client side resources  [aliases: g]
   8base import                 Imports 8base schema file and data to the current - or specified - workspace.
   8base init [name]            Initializes a new project with example directory structure and custom functions.
-  8base introspection          Getting introspection of the current enviroment
+  8base introspection          Getting introspection of the current environment
   8base invoke <name>          Invokes a custom function in the production workspace.
   8base invoke-local <name>    Invokes the custom function in the local development workspace.
   8base login                  Authenticates the command line user by letting them log into an 8base account.
@@ -120,7 +120,8 @@ OPTIONS
   -d, --debug    Turn on debug logs  [boolean]
   -h, --help     Show help  [boolean]
   -p, --plugins  The list of plugins to deploy  [array]
-  -m, --mode     Deploy mode  [string] [choices: "FULL", "ONLY_PLUGINS", "ONLY_PROJECT", "MIGRATIONS"] [default: "ONLY_PROJECT"]"
+  -m, --mode     Deploy mode  [string] [choices: "FULL", "ONLY_PLUGINS", "ONLY_PROJECT", "MIGRATIONS"] [default: "ONLY_PROJECT"]
+  -f, --force    You can specify force flag to deploy without prompt about Node.js version change.  [boolean]"
 `;
 
 exports[`As a user, I can use help flag for see help information about \`[ 'describe' ]\`. 1`] = `
@@ -384,13 +385,13 @@ exports[`As a user, I can use help flag for see help information about \`[ 'intr
   8base introspection [OPTIONS]
 
 DESCRIPTION
-  Getting introspection of the current enviroment
+  Getting introspection of the current environment
 
 OPTIONS
   -d, --debug         Turn on debug logs  [boolean]
   -h, --help          Show help  [boolean]
   -f, --file          Destination file  [string] [required]
-  -u, --uncompressed  Destination file  [boolean]"
+  -u, --uncompressed  "Uncompress" the file when saving (set line breaks and indents)  [boolean]"
 `;
 
 exports[`As a user, I can use help flag for see help information about \`[ 'invoke' ]\`. 1`] = `
