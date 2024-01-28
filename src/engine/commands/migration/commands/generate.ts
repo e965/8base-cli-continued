@@ -5,7 +5,7 @@ import { StaticConfig } from '../../../../config';
 import { Context } from '../../../../common/context';
 import { translations } from '../../../../common/translations';
 import { GraphqlActions } from '../../../../consts/GraphqlActions';
-import { ProjectConfigurationState } from '../../../../common/configuraion';
+import { ProjectConfigurationState } from '../../../../common/configuration';
 import { Utils } from '../../../../common/utils';
 
 type MigrationGenerateParams = { dist: string; tables?: string[]; environment?: string };

@@ -7,7 +7,7 @@ import { Context } from '../../../../common/context';
 import { translations } from '../../../../common/translations';
 import { executeAsync, executeDeploy, uploadProject } from '../../../../common/execute';
 import { GraphqlAsyncActions } from '../../../../consts/GraphqlActions';
-import { ProjectConfigurationState } from '../../../../common/configuraion';
+import { ProjectConfigurationState } from '../../../../common/configuration';
 import { DeployModeType } from '../../../../interfaces/Extensions';
 import { CommitMode, RequestOptions } from '../../../../interfaces/Common';
 import { DEFAULT_ENVIRONMENT_NAME } from '../../../../consts/Environment';

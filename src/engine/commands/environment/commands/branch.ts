@@ -5,7 +5,7 @@ import errorCodes from '@8base/error-codes';
 import { Context } from '../../../../common/context';
 import { translations } from '../../../../common/translations';
 import { GraphqlAsyncActions } from '../../../../consts/GraphqlActions';
-import { ProjectConfigurationState } from '../../../../common/configuraion';
+import { ProjectConfigurationState } from '../../../../common/configuration';
 import { executeAsync } from '../../../../common/execute';
 import { MigrateMode } from '../../../../interfaces/Common';
 import { Interactive } from '../../../../common/interactive';

@@ -5,7 +5,7 @@ import { Context } from '../../../common/context';
 import { Utils } from '../../../common/utils';
 import { translations } from '../../../common/translations';
 import { GraphqlActions } from '../../../consts/GraphqlActions';
-import { ProjectConfigurationState } from '../../../common/configuraion';
+import { ProjectConfigurationState } from '../../../common/configuration';
 
 type IntrospectionParams = { file: string; uncompressed: boolean };
 

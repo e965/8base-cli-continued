@@ -2,7 +2,7 @@ import yargs from 'yargs';
 import { Context } from '../../../../common/context';
 import { translations } from '../../../../common/translations';
 import { GraphqlActions } from '../../../../consts/GraphqlActions';
-import { ProjectConfigurationState } from '../../../../common/configuraion';
+import { ProjectConfigurationState } from '../../../../common/configuration';
 import chalk from 'chalk';
 import { Colors } from '../../../../consts/Colors';
 import { table } from 'table';

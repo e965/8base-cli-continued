@@ -1,7 +1,7 @@
 import yargs from 'yargs';
 import { Context } from '../../../../common/context';
 import { translations } from '../../../../common/translations';
-import { ProjectConfigurationState } from '../../../../common/configuraion';
+import { ProjectConfigurationState } from '../../../../common/configuration';
 import { table } from 'table';
 import { GraphqlActions } from '../../../../consts/GraphqlActions';
 

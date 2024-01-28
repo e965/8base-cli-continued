@@ -3,7 +3,7 @@ import chalk from 'chalk';
 
 import { Context } from '../../../../common/context';
 import { translations } from '../../../../common/translations';
-import { ProjectConfigurationState } from '../../../../common/configuraion';
+import { ProjectConfigurationState } from '../../../../common/configuration';
 
 export default {
   command: 'show',
