@@ -22,7 +22,7 @@ export const GraphqlActions = {
       count
     }
   }`,
-  versionCheck: `
+  functionsVersionCheck: `
     query FunctionsVersionCheck {
       system {
         functionsVersionCheck {

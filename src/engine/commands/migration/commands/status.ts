@@ -17,7 +17,19 @@ export default {
 
   handler: async (params: MigrationStatusParams, context: Context) => {
     await ProjectConfigurationState.expectHasProject(context);
-    await executeDeploy(context, { mode: DeployModeType.migrations }, { customEnvironment: params.environment });
+
+    const { needToChangeVersion, confirmChangeVersion, nodeVersion } = await context.confirmFunctionsVersionChange();
+
+    if (needToChangeVersion && !confirmChangeVersion) {
+      throw new Error(context.i18n.t('migration_commit_canceled'));
+    }
+
+    await executeDeploy(
+      context,
+      { mode: DeployModeType.migrations, nodeVersion },
+      { customEnvironment: params.environment },
+    );
+
     context.spinner.start(context.i18n.t('migration_status_in_progress'));
     const { system } = await context.request(
       GraphqlActions.migrationStatus,

@@ -84,6 +84,8 @@ export default {
       'Deploys project described in 8base.yml config file from your current local directory to 8base server. You must be in the root directory of your local 8base project to use this command.',
     deploy_plugins_describe: 'The list of plugins to deploy',
     deploy_mode_describe: 'Deploy mode',
+    deploy_force_describe: 'You can specify force flag to deploy without prompt about Node.js version change.',
+    deploy_cancelled: 'Deploy cancelled',
 
     /**
      * Config related messages
@@ -419,6 +421,13 @@ export default {
     environment_show_usage: 'COMMAND\n  8base environment show\n\nDESCRIPTION\n Displays current environment.',
     environment_show_describe: 'Displays currently selected environment',
     environment_show_text: 'Environment: {{-environment}}',
+
+    node_version_local_non_exists_and_mismatch:
+      'The local version of Node.js is not set in the 8base.yml file, although the runtime version on the server is different from the default. Check the latest changes in your primary branch.',
+    node_version_local_and_remote_mismatch:
+      'The Node.js version on the server is different from the one set locally in the 8base.yml file. It is necessary to synchronize the versions',
+    node_version_synchronization_confirm: 'Confirm version synchronization?',
+    node_version_synchronization_force: 'Version synchronization will happen forcefully',
 
     /**
      * Plugin related messages

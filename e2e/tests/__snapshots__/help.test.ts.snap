@@ -120,7 +120,8 @@ OPTIONS
   -d, --debug    Turn on debug logs  [boolean]
   -h, --help     Show help  [boolean]
   -p, --plugins  The list of plugins to deploy  [array]
-  -m, --mode     Deploy mode  [string] [choices: "FULL", "ONLY_PLUGINS", "ONLY_PROJECT", "MIGRATIONS"] [default: "ONLY_PROJECT"]"
+  -m, --mode     Deploy mode  [string] [choices: "FULL", "ONLY_PLUGINS", "ONLY_PROJECT", "MIGRATIONS"] [default: "ONLY_PROJECT"]
+  -f, --force    You can specify force flag to deploy without prompt about Node.js version change.  [boolean]"
 `;
 
 exports[`As a user, I can use help flag for see help information about \`[ 'describe' ]\`. 1`] = `
