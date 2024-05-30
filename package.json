@@ -22,7 +22,7 @@
     "build": "rm -rf dist && rollup --config rollup.config.mjs",
     "watch": "npm run build -- --watch",
     "check-types": "tsc --noEmit",
-    "lint": "eslint --ext js,ts src",
+    "lint": "eslint --ext js,ts src e2e",
     "lint:fix": "npm run lint --fix",
     "prettier:check": "prettier --list-different \"{src,e2e}/**/*.{ts,tsx}\"",
     "prettier:write": "prettier --write \"{src,e2e}/**/*.{ts,tsx}\"",
